@@ -4,16 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from './entities/link.entity';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
-import { LinkRepository } from './link.repository';
 
 @Injectable()
 export class LinkService {
-
-  // constructor(
-  //   @Inject('LINK_REPOSITORY')
-  //   private repository: Repository<Link>,
-  // ) {}
-
   constructor(
     @InjectRepository(Link) private repository: Repository<Link>,
   ) {}
@@ -34,10 +27,10 @@ export class LinkService {
   }
 
   update(id: string, updateLinkDto: UpdateLinkDto) {
-    return this.repository.update(+id, updateLinkDto);
+    this.repository.update(id, updateLinkDto);
   }
 
   remove(id: string) {
-    return this.repository.delete(id);
+    this.repository.delete(id);
   }
 }
